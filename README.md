@@ -8,7 +8,7 @@ We need total four nodes, designated Node 1-4. With the following setup.
 | 1 | zookeeper0 | kafka0 | orderer0.example.com | peer0.org1.example.com|cli |
 | 2 | zookeeper1 | kafka1 | orderer1.example.com | peer1.org1.example.com|cli |
 | 3 | zookeeper2 | kafka2 | orderer2.example.com | peer0.org2.example.com|cli |
-| 4 | | kafka3 | | peer1.org2.example.com |cli|
+| 4 | zookeeper3 | kafka3 | orderer3.example.com | peer1.org2.example.com|cli |
 
 ## Steps
 
