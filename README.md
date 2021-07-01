@@ -18,10 +18,10 @@ For demo purpose simply open all ports in security group (or equivalent).
 
 Keep the public IP address of the four nodes.
 
-### Step 2: Install everything required in a Hyperledger Fabric Node
+### Step 2: Install everything required in all nodes
 curl -sSL http://bit.ly/2ysbOFE | bash -s -- 1.4.4 1.4.4 0.4.18
 
-### Step 3: Prepare material in localhost
+### Step 3: Prepare material in Master node
 Clone this repository in `fabric-samples`
 
 Modify the `.env`, with the public IP address for each node.
@@ -33,10 +33,9 @@ NODE3=
 NODE4=
 ```
 
-### Step 4: Copy the whole directory to the four nodes
+### Step 4: Copy the whole directory from Master node to the other nodes
 ```
 cd fabric-samples
-tar cf fullgear-4node-setup.tar fullgear-4node-setup/
 (Optional): generate the channel artifacts in file crypto-config.yaml 
 ../bin/cryptogen generate --config=./crypto-config.yaml
 (Optional):generate the genesis block in file configtx.yaml
@@ -45,7 +44,7 @@ export FABRIC_CFG_PATH=$PWD
 ```
 And scp to each node.
 ```
-scp -i <key_name> fullgear-4node-setup.tar ubuntu@[node_address]:/home/ubuntu/fabric-samples/
+scp -r fullgear-4node-setup ubuntu@[node_address]:/home/ubuntu/fabric-samples/
 ```
 
 ### Step 5: Bring up containers in each node
@@ -75,8 +74,8 @@ Then copy **mychannel.block** to other nodes. I am using localhost and scp.
 docker cp org1-cli:/opt/gopath/src/github.com/hyperledger/fabric/peer/mychannel.block .
 
 # localhost
-scp -i ~/Downloads/aws.pem ubuntu@[Node1]:/home/ubuntu/fabric-samples/fullgear-4node-setup/mychannel.block .
-scp -i ~/Downloads/aws.pem mychannel.block ubuntu@[Node2&3&4]:/home/ubuntu/fabric-samples/fullgear-4node-setup/
+scp -r ubuntu@[Node1]:/home/ubuntu/fabric-samples/fullgear-4node-setup/mychannel.block .
+scp -r mychannel.block ubuntu@[Node2&3&4]:/home/ubuntu/fabric-samples/fullgear-4node-setup/
 
 # Node 2, 3 and 4
 docker cp mychannel.block cli:/opt/gopath/src/github.com/hyperledger/fabric/peer/
