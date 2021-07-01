@@ -41,6 +41,7 @@ cd fabric-samples
 (Optional):generate the genesis block in file configtx.yaml
 export FABRIC_CFG_PATH=$PWD
 ../bin/configtxgen -profile TwoOrgsOrdererGenesis -outputBlock ./channel-artifacts/genesis.block
+After you executing new cert are generated.Hence you will have to update the docker-compose.yml file.
 ```
 And scp to each node.
 ```
