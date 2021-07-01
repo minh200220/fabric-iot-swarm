@@ -72,7 +72,7 @@ Then copy **mychannel.block** to other nodes. I am using localhost and scp.
 # Node 1
 docker cp org1-cli:/opt/gopath/src/github.com/hyperledger/fabric/peer/mychannel.block .
 
-# localhost
+# Node 1
 scp -r ubuntu@[Node1]:/home/ubuntu/fabric-samples/fullgear-4node-setup/mychannel.block .
 scp -r mychannel.block ubuntu@[Node2&3&4]:/home/ubuntu/fabric-samples/fullgear-4node-setup/
 
