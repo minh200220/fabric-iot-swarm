@@ -40,6 +40,11 @@ NODE4=
 ```
 cd fabric-samples
 tar cf fullgear-4node-setup.tar fullgear-4node-setup/
+(Optional): generate the channel artifacts in file crypto-config.yaml 
+../bin/cryptogen generate --config=./crypto-config.yaml
+(Optional):generate the genesis block in file configtx.yaml
+export FABRIC_CFG_PATH=$PWD
+../bin/configtxgen -profile TwoOrgsOrdererGenesis -outputBlock ./channel-artifacts/genesis.block
 ```
 And scp to each node.
 ```
@@ -53,6 +58,7 @@ cd fabric-samples
 tar xf fullgear-4node-setup.tar
 cd fullgear-4node-setup
 docker-compose -f node<n>.yaml up -d
+
 ```
 After it is done on four nodes, do a `docker ps` and check whether all containers are up and running.
 
