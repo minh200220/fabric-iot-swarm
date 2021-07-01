@@ -19,8 +19,7 @@ services:
             - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888 server.4=zookeeper3:2888:3888
         extra_hosts:
             - "zookeeper0:${NODE1}"
-            - "zookeeper1:${NODE2}"
-	    - "zookeeper2:${NODE3}"
+            - "zookeeper1:${NODE2}"- "zookeeper2:${NODE3}"
         networks:
             - fabric
 
