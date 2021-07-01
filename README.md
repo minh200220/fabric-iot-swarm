@@ -1,5 +1,5 @@
 # A Fabric Network deployed on 4 Nodes
-A Fabric Network of 4 Orderers with Kafka, 2 Organizations each of which has 2 peers, deployed on 4 nodes.
+A Fabric Network of 3 Orderers with Kafka, 2 Organizations each of which has 2 peers, deployed on 4 nodes.
 ## Node Setup
 We need total four nodes, designated Node 1-4. With the following setup.
 
@@ -8,20 +8,23 @@ We need total four nodes, designated Node 1-4. With the following setup.
 | 1 | zookeeper0 | kafka0 | orderer0.example.com | peer0.org1.example.com|cli |
 | 2 | zookeeper1 | kafka1 | orderer1.example.com | peer1.org1.example.com|cli |
 | 3 | zookeeper2 | kafka2 | orderer2.example.com | peer0.org2.example.com|cli |
-| 4 | zookeeper3 | kafka3 | orderer3.example.com | peer1.org2.example.com|cli |
+| 4 | | kafka3 | | peer1.org2.example.com |cli|
 
 ## Steps
 
 ### Step 1: Launch Four Nodes
-The setup is tested with Ubuntu 18.04 LTS and on OPENSTACK instances. It should also work in other cloud instances.
+The setup is tested with Ubuntu 18.04 LTS and on AWS EC2 t2.small instances. It should also work in other cloud instances.
 For demo purpose simply open all ports in security group (or equivalent).
 
 Keep the public IP address of the four nodes.
 
-### Step 2: Install everything required in all nodes
-curl -sSL http://bit.ly/2ysbOFE | bash -s -- 1.4.4 1.4.4 0.4.18
+### Step 2: Install everything required in a Hyperledger Fabric Node
+That includes the [prerequisite](https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html) and the [fabric software](https://hyperledger-fabric.readthedocs.io/en/latest/install.html). Release 1.4.1 is tested in this setup. If a single cloud provider is used,
+we can create a machine image after installing all the software. Next time when we launch the four nodes we don't need to redo it again.
 
-### Step 3: Prepare material in Master node
+Here is a sample how to do this on AWS: [Setup a Hyperledger Fabric host and Create a Machine Image](https://medium.com/@kctheservant/setup-a-hyperledger-fabric-host-and-create-a-machine-image-682859fd58ba)
+
+### Step 3: Prepare material in localhost
 Clone this repository in `fabric-samples`
 
 Modify the `.env`, with the public IP address for each node.
@@ -33,19 +36,14 @@ NODE3=
 NODE4=
 ```
 
-### Step 4: Copy the whole directory from Master node to the other nodes
+### Step 4: Copy the whole directory to the four nodes
 ```
 cd fabric-samples
-(Optional): generate the channel artifacts in file crypto-config.yaml 
-../bin/cryptogen generate --config=./crypto-config.yaml
-(Optional):generate the genesis block in file configtx.yaml
-export FABRIC_CFG_PATH=$PWD
-../bin/configtxgen -profile TwoOrgsOrdererGenesis -outputBlock ./channel-artifacts/genesis.block
-After you executing new cert are generated.Hence you will have to update the docker-compose.yml file.
+tar cf fullgear-4node-setup.tar fullgear-4node-setup/
 ```
 And scp to each node.
 ```
-scp -r fullgear-4node-setup ubuntu@[node_address]:/home/ubuntu/fabric-samples/
+scp -i <key_name> fullgear-4node-setup.tar ubuntu@[node_address]:/home/ubuntu/fabric-samples/
 ```
 
 ### Step 5: Bring up containers in each node
@@ -73,9 +71,9 @@ Then copy **mychannel.block** to other nodes. I am using localhost and scp.
 # Node 1
 docker cp org1-cli:/opt/gopath/src/github.com/hyperledger/fabric/peer/mychannel.block .
 
-# Node 1
-scp -r ubuntu@[Node1]:/home/ubuntu/fabric-samples/fullgear-4node-setup/mychannel.block .
-scp -r mychannel.block ubuntu@[Node2&3&4]:/home/ubuntu/fabric-samples/fullgear-4node-setup/
+# localhost
+scp -i ~/Downloads/aws.pem ubuntu@[Node1]:/home/ubuntu/fabric-samples/fullgear-4node-setup/mychannel.block .
+scp -i ~/Downloads/aws.pem mychannel.block ubuntu@[Node2&3&4]:/home/ubuntu/fabric-samples/fullgear-4node-setup/
 
 # Node 2, 3 and 4
 docker cp mychannel.block cli:/opt/gopath/src/github.com/hyperledger/fabric/peer/
