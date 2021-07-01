@@ -54,7 +54,6 @@ cd fabric-samples
 tar xf fullgear-4node-setup.tar
 cd fullgear-4node-setup
 docker-compose -f node<n>.yaml up -d
-
 ```
 After it is done on four nodes, do a `docker ps` and check whether all containers are up and running.
 
