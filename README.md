@@ -13,16 +13,13 @@ We need total four nodes, designated Node 1-4. With the following setup.
 ## Steps
 
 ### Step 1: Launch Four Nodes
-The setup is tested with Ubuntu 18.04 LTS and on AWS EC2 t2.small instances. It should also work in other cloud instances.
+The setup is tested with Ubuntu 18.04 LTS and on OPENSTACK instances. It should also work in other cloud instances.
 For demo purpose simply open all ports in security group (or equivalent).
 
 Keep the public IP address of the four nodes.
 
 ### Step 2: Install everything required in a Hyperledger Fabric Node
-That includes the [prerequisite](https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html) and the [fabric software](https://hyperledger-fabric.readthedocs.io/en/latest/install.html). Release 1.4.1 is tested in this setup. If a single cloud provider is used,
-we can create a machine image after installing all the software. Next time when we launch the four nodes we don't need to redo it again.
-
-Here is a sample how to do this on AWS: [Setup a Hyperledger Fabric host and Create a Machine Image](https://medium.com/@kctheservant/setup-a-hyperledger-fabric-host-and-create-a-machine-image-682859fd58ba)
+curl -sSL http://bit.ly/2ysbOFE | bash -s -- 1.4.4 1.4.4 0.4.18
 
 ### Step 3: Prepare material in localhost
 Clone this repository in `fabric-samples`
