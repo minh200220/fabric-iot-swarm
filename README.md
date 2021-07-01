@@ -1,5 +1,5 @@
 # A Fabric Network deployed on 4 Nodes
-A Fabric Network of 3 Orderers with Kafka, 2 Organizations each of which has 2 peers, deployed on 4 nodes.
+A Fabric Network of 4 Orderers with Kafka, 2 Organizations each of which has 2 peers, deployed on 4 nodes.
 ## Node Setup
 We need total four nodes, designated Node 1-4. With the following setup.
 
