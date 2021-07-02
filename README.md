@@ -40,6 +40,12 @@ NODE4=
 ```
 cd fabric-samples
 tar cf fullgear-4node-setup.tar fullgear-4node-setup/
+export CHANNEL_ONE_NAME=twoorgschannel
+export CHANNEL_ONE_PROFILE=TwoOrgsChannel
+../bin/configtxgen -profile ${CHANNEL_ONE_PROFILE} -outputCreateChannelTx ./channel-artifacts/${CHANNEL_ONE_NAME}.tx -channelID $CHANNEL_ONE_NAME
+../bin/configtxgen -profile ${CHANNEL_ONE_PROFILE} -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors_${CHANNEL_ONE_NAME}.tx -channelID $CHANNEL_ONE_NAME -asOrg Org1MSP
+../bin/configtxgen -profile ${CHANNEL_ONE_PROFILE} -outputAnchorPeersUpdate ./channel-artifacts/Org2MSPanchors_${CHANNEL_ONE_NAME}.tx -channelID $CHANNEL_ONE_NAME -asOrg Org2MSP
+
 ```
 And scp to each node.
 ```
