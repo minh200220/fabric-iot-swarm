@@ -44,18 +44,14 @@ Organizations:
             Admins:
                 Type: Signature
                 Rule: "OR('Org2MSP.admin')"
-
+                
 Capabilities:
     Channel: &ChannelCapabilities
-        V1_4_2: true
-        V1_3: false
-        V1_1: false
+        V1_3: true
     Orderer: &OrdererCapabilities
-        V1_4_2: true
-        V1_1: false
+        V1_1: true
     Application: &ApplicationCapabilities
-        V1_4_2: true
-        V1_3: false
+        V1_3: true
         V1_2: false
         V1_1: false
 
