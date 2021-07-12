@@ -88,4 +88,5 @@ docker exec cli peer channel join -b mychannel.block
 
 ### Step 7: Test your chaincode
 docker ps --format "table{{.ID}}\t{{.Names}}\t{{.Image}}\t{{.RunningFor}}\t{{.Status}}\t{{.Ports}}"
+
 Now the *mychannel* is ready, and you can start testing your own chaincode.
