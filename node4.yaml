@@ -1,27 +1,13 @@
+
 version: '2'
 
 volumes:
-    orderer3.example.com:
     peer1.org2.example.com:
 
 networks:
     fabric:
 
 services:
-    zookeeper3:
-        extends:
-            file: nodebase.yaml
-            service: zookeeper
-        container_name: zookeeper3
-        environment:
-            - ZOO_MY_ID=4
-            - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888 server.4=zookeeper3:2888:3888
-        extra_hosts:
-            - "zookeeper0:${NODE1}"
-            - "zookeeper1:${NODE2}"
-            - "zookeeper2:${NODE3}"
-        networks:
-            - fabric
 
     kafka3:
         extends:
@@ -30,7 +16,7 @@ services:
         container_name: kafka3
         environment:
             - KAFKA_BROKER_ID=3
-            - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
+            - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
             - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka3:9092
             - KAFKA_MESSAGE_MAX_BYTES=1000012 B
             - KAFKA_REPLICA_FETCH_MAX_BYTES=1048576 B
@@ -40,13 +26,11 @@ services:
             - "zookeeper1:${NODE2}"
             - "zookeeper2:${NODE3}"
             - "kafka0:${NODE1}"
-            - "kafka1:${NODE2}"
             - "kafka2:${NODE3}"
+            - "kafka1:${NODE2}"
             - "orderer0.example.com:${NODE1}"
             - "orderer1.example.com:${NODE2}"
             - "orderer2.example.com:${NODE3}"
-        depends_on:
-            - zookeeper3
         networks:
             - fabric
 
@@ -66,8 +50,8 @@ services:
             - "orderer1.example.com:${NODE2}"
             - "orderer2.example.com:${NODE3}"
             - "peer0.org1.example.com:${NODE1}"
-            - "peer1.org1.example.com:${NODE2}"
             - "peer0.org2.example.com:${NODE3}"
+            - "peer1.org1.example.com:${NODE2}"
         volumes:
             - /var/run/:/host/var/run/
             - ./crypto-config/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/msp:/etc/hyperledger/fabric/msp
@@ -78,45 +62,6 @@ services:
             - 7053:7053
         networks:
             - fabric
-   
-  
-    orderer3.example.com:
-        extends:
-            file: nodebase.yaml
-            service: orderer
-        container_name: orderer3.example.com
-        environment:
-            - ORDERER_HOST=orderer3.example.com
-            - CONFIGTX_ORDERER_ORDERERTYPE=kafka
-            - CONFIGTX_ORDERER_KAFKA_BROKERS=[kafka0:9092,kafka1:9092,kafka2:9092,kafka3:9092]
-            - ORDERER_KAFKA_RETRY_SHORTINTERVAL=1s
-            - ORDERER_KAFKA_RETRY_SHORTTOTAL=30s
-            - ORDERER_KAFKA_VERBOSE=true
-            - ORDERER_GENERAL_GENESISPROFILE=SampleInsecureKafka
-            - ORDERER_ABSOLUTEMAXBYTES=10 MB
-            - ORDERER_PREFERREDMAXBYTES=512 KB            
-        extra_hosts:
-            - "orderer0.example.com:${NODE1}"
-            - "orderer1.example.com:${NODE2}"
-            - "orderer2.example.com:${NODE3}"
-            - "kafka0:${NODE1}"
-            - "kafka1:${NODE2}"
-            - "kafka2:${NODE3}"
-            - "peer0.org1.example.com:${NODE1}"
-            - "peer1.org1.example.com:${NODE2}"
-            - "peer0.org2.example.com:${NODE3}"
-        depends_on:
-            - zookeeper3
-            - kafka3
-        volumes:
-            - ./crypto-config/ordererOrganizations/example.com/orderers/orderer3.example.com/msp:/var/hyperledger/msp
-            - ./crypto-config/ordererOrganizations/example.com/orderers/orderer3.example.com/tls:/var/hyperledger/tls
-            - ./channel-artifacts/:/var/hyperledger/configs
-        networks:
-            - fabric
-        ports:
-          - 7050:7050
- 
 
     cli:
         container_name: cli
@@ -152,7 +97,6 @@ services:
             - ./scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
             - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
         depends_on:
-            - orderer3.example.com
             - peer1.org2.example.com
         networks:
           - fabric

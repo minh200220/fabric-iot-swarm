@@ -17,7 +17,7 @@ services:
             - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
             - FABRIC_CA_SERVER_CA_NAME=ca.org2.example.com
             - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org2.example.com-cert.pem
-            - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/8a20e9a65cc4e2894a0c7920d2f35bdff9c56cb89f3d37d2d7a2ac63149b1fe9_sk
+            - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/1b1b01803074ce499bcd4f72a97680fcd444ef80a6997ad0ecbf82ab296d7d49_sk
         ports:
             - "7054:7054"
         command: sh -c 'fabric-ca-server start -b admin:adminpw'
@@ -37,7 +37,6 @@ services:
         extra_hosts:
             - "zookeeper1:${NODE2}"
             - "zookeeper0:${NODE1}"
-            - "zookeeper3:${NODE4}"
         networks:
             - fabric
 
@@ -48,7 +47,7 @@ services:
         container_name: kafka2
         environment:
             - KAFKA_BROKER_ID=2
-            - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
+            - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
             - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka2:9092
             - KAFKA_MESSAGE_MAX_BYTES=1000012 B
             - KAFKA_REPLICA_FETCH_MAX_BYTES=1048576 B
@@ -56,13 +55,11 @@ services:
         extra_hosts:
             - "zookeeper1:${NODE2}"
             - "zookeeper0:${NODE1}"
-            - "zookeeper3:${NODE4}"
             - "kafka1:${NODE2}"
             - "kafka0:${NODE1}"
             - "kafka3:${NODE4}"
             - "orderer1.example.com:${NODE2}"
             - "orderer0.example.com:${NODE1}"
-            - "orderer3.example.com:${NODE4}"
         depends_on:
             - zookeeper2
         networks:
@@ -86,7 +83,6 @@ services:
         extra_hosts:
             - "orderer1.example.com:${NODE2}"
             - "orderer0.example.com:${NODE1}"
-            - "orderer3.example.com:${NODE4}"
             - "kafka1:${NODE2}"
             - "kafka0:${NODE1}"
             - "kafka3:${NODE4}"
@@ -119,7 +115,6 @@ services:
         extra_hosts:
             - "orderer1.example.com:${NODE2}"
             - "orderer0.example.com:${NODE1}"
-            - "orderer3.example.com:${NODE4}"
             - "peer1.org1.example.com:${NODE2}"
             - "peer0.org1.example.com:${NODE1}"
             - "peer1.org2.example.com:${NODE4}"
@@ -155,7 +150,6 @@ services:
         extra_hosts:
             - "orderer1.example.com:${NODE2}"
             - "orderer0.example.com:${NODE1}"
-            - "orderer3.example.com:${NODE4}"
             - "peer1.org1.example.com:${NODE2}"
             - "peer0.org1.example.com:${NODE1}"
             - "peer1.org2.example.com:${NODE4}"

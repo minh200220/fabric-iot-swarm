@@ -17,11 +17,10 @@ services:
         container_name: zookeeper1
         environment:
             - ZOO_MY_ID=2
-            - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888 server.4=zookeeper3:2888:3888
+            - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
         extra_hosts:
             - "zookeeper0:${NODE1}"
             - "zookeeper2:${NODE3}"
-            - "zookeeper3:${NODE4}"
         networks:
             - fabric
 
@@ -32,7 +31,7 @@ services:
         container_name: kafka1
         environment:
             - KAFKA_BROKER_ID=1
-            - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
+            - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
             - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka1:9092
             - KAFKA_MESSAGE_MAX_BYTES=1000012 B
             - KAFKA_REPLICA_FETCH_MAX_BYTES=1048576 B
@@ -40,13 +39,11 @@ services:
         extra_hosts:
             - "zookeeper0:${NODE1}"
             - "zookeeper2:${NODE3}"
-            - "zookeeper3:${NODE4}"
             - "kafka0:${NODE1}"
             - "kafka2:${NODE3}"
             - "kafka3:${NODE4}"
             - "orderer0.example.com:${NODE1}"
             - "orderer2.example.com:${NODE3}"
-            - "orderer3.example.com:${NODE4}"
         depends_on:
             - zookeeper1
         networks:
@@ -70,7 +67,6 @@ services:
         extra_hosts:
             - "orderer0.example.com:${NODE1}"
             - "orderer2.example.com:${NODE3}"
-            - "orderer3.example.com:${NODE4}"
             - "kafka0:${NODE1}"
             - "kafka2:${NODE3}"
             - "kafka3:${NODE4}"
@@ -103,7 +99,6 @@ services:
         extra_hosts:
             - "orderer0.example.com:${NODE1}"
             - "orderer2.example.com:${NODE3}"
-            - "orderer3.example.com:${NODE4}"
             - "peer0.org1.example.com:${NODE1}"
             - "peer0.org2.example.com:${NODE3}"
             - "peer1.org2.example.com:${NODE4}"
@@ -139,7 +134,6 @@ services:
         extra_hosts:
             - "orderer0.example.com:${NODE1}"
             - "orderer2.example.com:${NODE3}"
-            - "orderer3.example.com:${NODE4}"
             - "peer0.org1.example.com:${NODE1}"
             - "peer0.org2.example.com:${NODE3}"
             - "peer1.org2.example.com:${NODE4}"
