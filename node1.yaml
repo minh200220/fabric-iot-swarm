@@ -18,11 +18,15 @@ services:
             - FABRIC_CA_SERVER_CA_NAME=ca.org1.example.com
             - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem
             - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/2ed1824c667e60452d45e8388765bf808a4307b2efed9935b570e25a436f1e54_sk
+            - FABRIC_CA_SERVER_TLS_ENABLED=true
+            - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-tls-config/
+            - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-tls-config/d44c6908f7c019df38c5b55048abed49b8a5abca667d161b6e220b3f042f2173_sk
         ports:
             - "7054:7054"
         command: sh -c 'fabric-ca-server start -b admin:adminpw'
         volumes:
             - ./crypto-config/peerOrganizations/org1.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
+            - ./crypto-config/peerOrganizations/org1.example.com/tlsca/:/etc/hyperledger/fabric-ca-tls-config
         networks:
             - fabric
 
