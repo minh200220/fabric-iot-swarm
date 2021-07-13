@@ -1,92 +1,110 @@
-# A Fabric Network deployed on 4 Nodes
-A Fabric Network of 3 Orderers with Kafka, 2 Organizations each of which has 2 peers, deployed on 4 nodes.
-## Node Setup
-We need total four nodes, designated Node 1-4. With the following setup.
+## Fabric Network Orchestration Tool 
+This tool helps to setup Hyperledger Fabric Network by using Docker Swarm. By default, tool provides support to ordering service based on Solo, Kafka and Raft mode.
 
-| Node | Zookeeper | Kafka | Orderer | Peer | CLI |
-| --- | --- | --- | --- | --- | --- |
-| 1 | zookeeper0 | kafka0 | orderer0.example.com | peer0.org1.example.com|cli |
-| 2 | zookeeper1 | kafka1 | orderer1.example.com | peer1.org1.example.com|cli |
-| 3 | zookeeper2 | kafka2 | orderer2.example.com | peer0.org2.example.com|cli |
-| 4 | | kafka3 | | peer1.org2.example.com |cli|
+**Tool Includes**
+* Support to multi VM Fabric Network setup.
+* Ordering service based on Solo, Kafka and Raft mode.
+* Sample docker compose files for Orderer, Zookeeper, Kafka, Peer and CLI service.
 
-## Steps
+### Installation Guide
+Kindly install all the [Prerequisites](https://hyperledger-fabric.readthedocs.io/en/release-1.4/prereqs.html) mentioned on the official documentation. Make sure we have all the Docker Images downloaded locally.
+For exploration, we will take 4 VM with below specification.
 
-### Step 1: Launch Four Nodes
-The setup is tested with Ubuntu 18.04 LTS and on AWS EC2 t2.small instances. It should also work in other cloud instances.
-For demo purpose simply open all ports in security group (or equivalent).
+|Organisation | VM Specification|
+|-------------|-----------------|
+|Swarm Master | 8GB, 2 vCPU     |
+|Org1         | 8GB, 2 vCPU     |
+|Org1         | 8GB, 2 vCPU     |
+|Orderer      | 16GB, 4 vCPU    |
 
-Keep the public IP address of the four nodes.
+![Tool Architecture](img/architecture.png "Tool Architecture")
 
-### Step 2: Install everything required in a Hyperledger Fabric Node
-That includes the [prerequisite](https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html) and the [fabric software](https://hyperledger-fabric.readthedocs.io/en/latest/install.html). Release 1.4.1 is tested in this setup. If a single cloud provider is used,
-we can create a machine image after installing all the software. Next time when we launch the four nodes we don't need to redo it again.
+**# Step 1**
 
-Here is a sample how to do this on AWS: [Setup a Hyperledger Fabric host and Create a Machine Image](https://medium.com/@kctheservant/setup-a-hyperledger-fabric-host-and-create-a-machine-image-682859fd58ba)
+Clone the git repository on all the VM as below.
 
-### Step 3: Prepare material in localhost
-Clone this repository in `fabric-samples`
-
-Modify the `.env`, with the public IP address for each node.
-
-```
-NODE1=
-NODE2=
-NODE3=
-NODE4=
+```bash
+   git clone https://github.com/dineshrivankar/fabric-network-on-swarm.git
 ```
 
-### Step 4: Copy the whole directory to the four nodes
+**# Step 2**
+
+Login to the Swarm Master VM and setup Swarm Network by running the below script from home directory of the cloned repository.
+
+```bash
+    ./swarm/setup-swarm-network.sh
 ```
-cd fabric-samples
-tar cf fullgear-4node-setup.tar fullgear-4node-setup/
-```
-And scp to each node.
-```
-scp -i <key_name> fullgear-4node-setup.tar ubuntu@[node_address]:/home/ubuntu/fabric-samples/
+After successful execution of the script, copy the join token and run on other VM to create Swarm Network.
+
+Once all desired VM joins the Network, verify by running the below script on Swarm Master VM.
+
+```bash
+    ./swarm/list-nodes.sh
 ```
 
-### Step 5: Bring up containers in each node
-On each node,
-```
-cd fabric-samples
-tar xf fullgear-4node-setup.tar
-cd fullgear-4node-setup
-docker-compose -f node<n>.yaml up -d
-```
-After it is done on four nodes, do a `docker ps` and check whether all containers are up and running.
+Create an overlay network to communicate in the Swarm Network.
 
-Note that there are chances that kafka container exits. If so, just perform a docker-compose command again on those nodes, until all containers are up and running.
-
-### Step 6: Create and join channel
-In this setup I only have one channel *mychannel*. We will create the **mychannel.block** first using cli in Node 1. 
-
-```
-# Node 1
-docker exec cli peer channel create -o orderer0.example.com:7050 -c mychannel -f ./channel-artifacts/channel.tx
-docker exec cli peer channel join -b mychannel.block
-```
-Then copy **mychannel.block** to other nodes. I am using localhost and scp.
-```
-# Node 1
-docker cp org1-cli:/opt/gopath/src/github.com/hyperledger/fabric/peer/mychannel.block .
-
-# localhost
-scp -i ~/Downloads/aws.pem ubuntu@[Node1]:/home/ubuntu/fabric-samples/fullgear-4node-setup/mychannel.block .
-scp -i ~/Downloads/aws.pem mychannel.block ubuntu@[Node2&3&4]:/home/ubuntu/fabric-samples/fullgear-4node-setup/
-
-# Node 2, 3 and 4
-docker cp mychannel.block cli:/opt/gopath/src/github.com/hyperledger/fabric/peer/
+```bash
+     ./swarm/setup-docker-network.sh
 ```
 
-Now **mychannel.block** is in all cli in each node. We will join other peers to *mychannel*
+**# Step 3**
 
+Now edit the .env file to add the Hostname Configuration. If you are not aware of the Hostname, kindly use the details shown after running `./swarm/list-nodes.sh`  
+
+```bash     
+    ORDERER_HOSTNAME=<orderer_hostname>
+    ORG1_HOSTNAME=<org1_hostname>
+    ORG2_HOSTNAME=<org2_hostname>
 ```
-# Node 2, 3 and 4
-docker exec cli peer channel join -b mychannel.block
+
+**# Step 4**
+
+Generate Crypto material for all the participants by running the below script. Kindly note that we need to provide the orderer type with -o option.
+
+```bash
+     ./generate-crypto.sh -o solo
 ```
 
-### Step 7: Test your chaincode
-docker ps --format "table{{.ID}}\t{{.Names}}\t{{.Image}}\t{{.RunningFor}}\t{{.Status}}\t{{.Ports}}"
+The above script will populate the Hostname in all the Docker Compose file and then run the `cryptogen` and `configtxgen` tool for creating crypto material, genesis block and channel tx files.
+Move the newly created files (`crypto-config/` and `config/`)on other VM's under root directory of the repository.
 
-Now the *mychannel* is ready, and you can start testing your own chaincode.
+**# Step 5**
+
+Copy Crypto material to standard path for Docker Engine to mount on the container. Run the below script on all the VM connected to the Swarm Network. 
+
+```bash
+     ./copy-crypto.sh
+```
+
+**# Step 6**
+
+From Swarm Master VM, run the below command to start all the nodes. This will start the Docker Service and host the nodes on respected VM.
+
+```bash
+     ./deploy.sh -o solo
+```
+
+**# Step 7**
+
+Login to Org1 VM to create channel and deploy Chaincode. Org1 runs a cli container, `run.sh` script will do below activity:
+1. Create a channel.
+2. Join all peers from Org1 and org2.
+3. Install Chaincode.
+4. Instantiate Chaincode.
+5. Invoke transaction.
+6. Query transaction.
+
+```bash
+     ./run.sh
+```
+
+Repeat step 4 to 7 for deploying different types of Ordering Services. Don’t forget to reset the network by running below script on Swarm Master VM
+```bash
+     ./reset.sh
+```
+
+
+That’s it!
+
+Feel free to submit a PR.
