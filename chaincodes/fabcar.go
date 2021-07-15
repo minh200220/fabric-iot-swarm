@@ -10,6 +10,7 @@ import (
 	"strconv"
 
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
+	
 )
 
 // SmartContract provides functions for managing a car
