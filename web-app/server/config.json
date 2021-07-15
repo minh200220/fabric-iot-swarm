@@ -4,6 +4,6 @@
     "appAdminSecret": "adminpw",
     "orgMSPID": "Org1MSP",
     "userName": "admin",
-    "gatewayDiscovery": { "enabled": true "asLocalhost": false }
+    "gatewayDiscovery": { "enabled": true, "asLocalhost": false }
     
 }
