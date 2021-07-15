@@ -5,4 +5,5 @@
     "orgMSPID": "Org1MSP",
     "userName": "admin",
     "gatewayDiscovery": { "enabled": true "asLocalhost": false }
+    
 }
