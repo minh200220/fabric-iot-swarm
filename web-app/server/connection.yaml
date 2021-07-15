@@ -71,7 +71,7 @@ orderers:
     grpcOptions:
       ssl-target-name-override: orderer3.example.com
     tlsCACerts:
-      path: ./../testfabric/crypto-config/ordererOrganizations/example.com/orderers/orderer3.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+      path: ../../testfabric/crypto-config/ordererOrganizations/example.com/orderers/orderer3.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 
   orderer4.example.com:
     url: grpcs://192.168.100.149:10050
