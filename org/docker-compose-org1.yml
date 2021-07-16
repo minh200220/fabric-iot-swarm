@@ -4,6 +4,24 @@ networks:
         external:
             name: myNetwork
 services:
+    ca.org1.example.com:
+        image: hyperledger/fabric-ca
+        container_name: ca.org1.example.com
+        environment:
+            - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+            - FABRIC_CA_SERVER_CA_NAME=ca.org1.example.com
+            - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem
+            - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/2ed1824c667e60452d45e8388765bf808a4307b2efed9935b570e25a436f1e54_sk
+        ports:
+            - "7054:7054"
+        command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/2ed1824c667e60452d45e8388765bf808a4307b2efed9935b570e25a436f1e54_sk -b admin:adminpw -d'
+        volumes:
+            - ./crypto-config/peerOrganizations/org1.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
+        networks:
+            myNetwork: 
+                aliases:
+                    - ca.org1.example.com
+            
     peer0_org1:
         deploy:
             replicas: 1
