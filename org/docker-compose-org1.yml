@@ -5,7 +5,7 @@ networks:
             name: myNetwork
 services:
     ca.org1:
-        image: hyperledger/fabric-ca
+        image: hyperledger/fabric-ca:latest
         hostname: ca.org1.example.com
         environment:
             - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
