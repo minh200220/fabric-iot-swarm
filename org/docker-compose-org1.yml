@@ -4,7 +4,7 @@ networks:
         external:
             name: myNetwork
 services:
-    ca.org1:
+    ca_org1:
         deploy:
             replicas: 1
             restart_policy: 
