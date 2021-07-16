@@ -119,4 +119,26 @@ peers:
       request-timeout: 120001
     tlsCACerts:
       path: ../../testfabric/crypto-config/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/msp/tlscacerts/tlsca.org2.example.com-cert.pem
+  
+certificateAuthorities:
+  ca.org1.example.com:
+    url: https://192.168.100.104:7054
+    httpOptions:
+      verify: false
+    tlsCACerts:
+      path: ../../first-network/crypto-config/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem
+    registrar:
+      - enrollId: admin
+        enrollSecret: adminpw
+    caName: ca.org1.example.com
+  ca.org2.example.com:
+    url: https://192.168.100.118:7054
+    httpOptions:
+      verify: false
+    tlsCACerts:
+      path: ../../first-network/crypto-config/peerOrganizations/org2.example.com/ca/ca.org2.example.com-cert.pem
+    registrar:
+      - enrollId: admin
+        enrollSecret: adminpw
+    caName: ca.org2.example.com   
 
