@@ -4,9 +4,9 @@ networks:
         external:
             name: myNetwork
 services:
-    ca.org1.example.com:
+    ca.org1:
         image: hyperledger/fabric-ca
-        container_name: ca.org1.example.com
+        hostname: ca.org1.example.com
         environment:
             - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
             - FABRIC_CA_SERVER_CA_NAME=ca.org1.example.com
