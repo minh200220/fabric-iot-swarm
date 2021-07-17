@@ -122,11 +122,17 @@ echo
 echo "# ---------------------------------------------------------------------------"
 echo "# Invoking chaincode : Create CAR11"
 echo "# ---------------------------------------------------------------------------"
-docker exec "$CLI_NAME" peer chaincode invoke -o "$ORDERER_NAME":7050 --tls --cafile $ORDERER_CA_LOCATION -C $CHANNEL_NAME -n $CHAINCODE_NAME -c '{"Args":["CreateCar","CAR11","mazda","626","White","Korea"]}'
+docker exec "$CLI_NAME" peer chaincode invoke -o "$ORDERER_NAME":7050 --tls --cafile $ORDERER_CA_LOCATION -C $CHANNEL_NAME -n $CHAINCODE_NAME -c '{"Args":["createCar","CAR11","mazda","626","White","Korea"]}'
 sleep 5
 
 echo 
 echo "# ---------------------------------------------------------------------------"
 echo "# Query chaincode: Query CAR1"
 echo "# ---------------------------------------------------------------------------"
-docker exec "$CLI_NAME" peer chaincode query -o "$ORDERER_NAME":7050 --tls --cafile $ORDERER_CA_LOCATION -C $CHANNEL_NAME -n $CHAINCODE_NAME -c '{"Args":["QueryCar","CAR1"]}'
+docker exec "$CLI_NAME" peer chaincode query -o "$ORDERER_NAME":7050 --tls --cafile $ORDERER_CA_LOCATION -C $CHANNEL_NAME -n $CHAINCODE_NAME -c '{"Args":["queryCar","CAR1"]}'
+
+echo 
+echo "# ---------------------------------------------------------------------------"
+echo "# Query chaincode: Query ALL CARS"
+echo "# ---------------------------------------------------------------------------"
+docker exec "$CLI_NAME" peer chaincode query -o "$ORDERER_NAME":7050 --tls --cafile $ORDERER_CA_LOCATION -C $CHANNEL_NAME -n $CHAINCODE_NAME -c '{"Args":["queryAllCars"]}'
