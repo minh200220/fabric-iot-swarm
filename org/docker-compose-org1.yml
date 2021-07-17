@@ -26,7 +26,7 @@ services:
             - 7054:7054
         command: sh -c 'fabric-ca-server start -b admin:adminpw'
         volumes:
-            - ./crypto-config/peerOrganizations/org1.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
+            - /var/mynetwork/certs/crypto-config/peerOrganizations/org1.example.com/ca/:/var/hyperledger/fabric-ca-server-config
         networks:
             myNetwork: 
                 aliases:
