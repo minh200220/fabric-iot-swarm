@@ -76,7 +76,7 @@ orderers:
   orderer4.example.com:
     url: grpcs://192.168.100.149:10050
     grpcOptions:
-      ssl-target-name-override: orderer.example.com
+      ssl-target-name-override: orderer4.example.com
     tlsCACerts:
       path: /var/mynetwork/certs/crypto-config/ordererOrganizations/example.com/orderers/orderer4.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 
@@ -99,7 +99,7 @@ peers:
   peer1.org1.example.com:
     url: grpcs://192.168.100.104:8051
     grpcOptions:
-      ssl-target-name-override: peer0.org1.example.com
+      ssl-target-name-override: peer1.org1.example.com
       request-timeout: 120001
     tlsCACerts:
       path: /var/mynetwork/certs/crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/msp/tlscacerts/tlsca.org1.example.com-cert.pem
