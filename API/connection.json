@@ -18,10 +18,30 @@
                 "orderer.example.com"
             ],
             "peers": {
-                "peer0.org1.example.com": {},
-                "peer1.org1.example.com": {},
-		"peer0.org2.example.com": {},
-                "peer1.org2.example.com": {}
+                "peer0.org1.example.com": {
+		  "endorsingPeer": true,
+                  "chaincodeQuery": true,
+                  "ledgerQuery": true,
+                  "eventSource": true 
+		},
+                "peer1.org1.example.com": {
+		  "endorsingPeer": true,
+                  "chaincodeQuery": true,
+                  "ledgerQuery": true,
+                  "eventSource": true
+		},
+		"peer0.org2.example.com": {
+		  "endorsingPeer": true,
+                  "chaincodeQuery": true,
+                  "ledgerQuery": true,
+                  "eventSource": true
+		},
+                "peer1.org2.example.com": {
+		  "endorsingPeer": true,
+                  "chaincodeQuery": true,
+                  "ledgerQuery": true,
+                  "eventSource": true
+		}
             }
         }
     },
@@ -34,7 +54,13 @@
             ],
             "certificateAuthorities": [
                 "ca.org1.example.com"
-            ]
+            ],
+	    "adminPrivateKeyPEM": {
+              "path": "/var/mynetwork/certs/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/5f1a87cd681108a79b6a2f44a69e6b3d0051b2ac2dd49bd328996c8a4cf5d661_sk"
+            },
+            "signedCertPEM": {
+              "path": "/var/mynetwork/certs/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts/Admin@org1.example.com-cert.pem"
+            }
         },
 	 "Org2": {
             "mspid": "Org2MSP",
@@ -44,7 +70,13 @@
             ],
             "certificateAuthorities": [
                 "ca.org2.example.com"
-            ]
+            ],
+            "adminPrivateKeyPEM": {
+              "path": "/var/mynetwork/certs/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/keystore/6df44575592e7b9d6d7b3629a4ca41a4516e94ea72117a9839dac80600c669eb_sk"
+            },
+            "signedCertPEM": {
+              "path": "/var/mynetwork/certs/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/signcerts/Admin@org2.example.com-cert.pem"
+            }
         }
     },
     "orderers": {
