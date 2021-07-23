@@ -47,6 +47,23 @@
             ]
         }
     },
+    "orderers": {
+        "orderer": {
+            "url": "grpc://orderer:31010"
+        },
+	"orderer": {
+            "url": "grpc://orderer:31010"
+        },
+	"orderer": {
+            "url": "grpc://orderer:31010"
+        },
+	"orderer": {
+            "url": "grpc://orderer:31010"
+        },
+	"orderer": {
+            "url": "grpc://orderer:31010"
+        }
+    },
     "peers": {
         "peer0.org1.example.com": {
             "url": "grpcs://localhost:7051",
