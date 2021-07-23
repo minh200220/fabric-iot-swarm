@@ -49,19 +49,54 @@
     },
     "orderers": {
         "orderer": {
-            "url": "grpc://orderer:31010"
+            "url": "grpc://orderer:31010",
+	    "tlsCACerts": {
+                "pem": "-----BEGIN CERTIFICATE-----\nMIICWDCCAf6gAwIBAgIRAIKM1rnSnkFM9DKIz/SUocswCgYIKoZIzj0EAwIwdjEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzEuZXhhbXBsZS5jb20xHzAdBgNVBAMTFnRs\nc2NhLm9yZzEuZXhhbXBsZS5jb20wHhcNMjEwNzE1MjA0NTAwWhcNMzEwNzEzMjA0\nNTAwWjB2MQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UE\nBxMNU2FuIEZyYW5jaXNjbzEZMBcGA1UEChMQb3JnMS5leGFtcGxlLmNvbTEfMB0G\nA1UEAxMWdGxzY2Eub3JnMS5leGFtcGxlLmNvbTBZMBMGByqGSM49AgEGCCqGSM49\nAwEHA0IABPhgS7UC6eDcyvHvjCqY05JG+KpsOxpoWXtJMqdQQfDnslxQkGbQXdAg\nMT+xDX9NOOOwbT61rj9fBRmHeLH2jUKjbTBrMA4GA1UdDwEB/wQEAwIBpjAdBgNV\nHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zApBgNV\nHQ4EIgQgKbOU3e/8aQPfdPWEPfrl/NmUVTuhKCjPj94saXrReNUwCgYIKoZIzj0E\nAwIDSAAwRQIhAPio4gQoZjTY3YEsgtv6W4Ut1+8sQdUtTKYEzIQAZJsXAiAlKPCA\nw+k9pTfFykXhdfLK0PtwQbM1OpfRATc6OluRmg==\n-----END CERTIFICATE-----\n"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.org1.example.com",
+                "hostnameOverride": "peer0.org1.example.com"
+            }
         },
 	"orderer": {
-            "url": "grpc://orderer:31010"
+            "url": "grpc://orderer:31010",
+	    "tlsCACerts": {
+                "pem": "-----BEGIN CERTIFICATE-----\nMIICWDCCAf6gAwIBAgIRAIKM1rnSnkFM9DKIz/SUocswCgYIKoZIzj0EAwIwdjEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzEuZXhhbXBsZS5jb20xHzAdBgNVBAMTFnRs\nc2NhLm9yZzEuZXhhbXBsZS5jb20wHhcNMjEwNzE1MjA0NTAwWhcNMzEwNzEzMjA0\nNTAwWjB2MQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UE\nBxMNU2FuIEZyYW5jaXNjbzEZMBcGA1UEChMQb3JnMS5leGFtcGxlLmNvbTEfMB0G\nA1UEAxMWdGxzY2Eub3JnMS5leGFtcGxlLmNvbTBZMBMGByqGSM49AgEGCCqGSM49\nAwEHA0IABPhgS7UC6eDcyvHvjCqY05JG+KpsOxpoWXtJMqdQQfDnslxQkGbQXdAg\nMT+xDX9NOOOwbT61rj9fBRmHeLH2jUKjbTBrMA4GA1UdDwEB/wQEAwIBpjAdBgNV\nHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zApBgNV\nHQ4EIgQgKbOU3e/8aQPfdPWEPfrl/NmUVTuhKCjPj94saXrReNUwCgYIKoZIzj0E\nAwIDSAAwRQIhAPio4gQoZjTY3YEsgtv6W4Ut1+8sQdUtTKYEzIQAZJsXAiAlKPCA\nw+k9pTfFykXhdfLK0PtwQbM1OpfRATc6OluRmg==\n-----END CERTIFICATE-----\n"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.org1.example.com",
+                "hostnameOverride": "peer0.org1.example.com"
+            }
         },
 	"orderer": {
-            "url": "grpc://orderer:31010"
+            "url": "grpc://orderer:31010",
+	    "tlsCACerts": {
+                "pem": "-----BEGIN CERTIFICATE-----\nMIICWDCCAf6gAwIBAgIRAIKM1rnSnkFM9DKIz/SUocswCgYIKoZIzj0EAwIwdjEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzEuZXhhbXBsZS5jb20xHzAdBgNVBAMTFnRs\nc2NhLm9yZzEuZXhhbXBsZS5jb20wHhcNMjEwNzE1MjA0NTAwWhcNMzEwNzEzMjA0\nNTAwWjB2MQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UE\nBxMNU2FuIEZyYW5jaXNjbzEZMBcGA1UEChMQb3JnMS5leGFtcGxlLmNvbTEfMB0G\nA1UEAxMWdGxzY2Eub3JnMS5leGFtcGxlLmNvbTBZMBMGByqGSM49AgEGCCqGSM49\nAwEHA0IABPhgS7UC6eDcyvHvjCqY05JG+KpsOxpoWXtJMqdQQfDnslxQkGbQXdAg\nMT+xDX9NOOOwbT61rj9fBRmHeLH2jUKjbTBrMA4GA1UdDwEB/wQEAwIBpjAdBgNV\nHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zApBgNV\nHQ4EIgQgKbOU3e/8aQPfdPWEPfrl/NmUVTuhKCjPj94saXrReNUwCgYIKoZIzj0E\nAwIDSAAwRQIhAPio4gQoZjTY3YEsgtv6W4Ut1+8sQdUtTKYEzIQAZJsXAiAlKPCA\nw+k9pTfFykXhdfLK0PtwQbM1OpfRATc6OluRmg==\n-----END CERTIFICATE-----\n"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.org1.example.com",
+                "hostnameOverride": "peer0.org1.example.com"
+            }
         },
 	"orderer": {
-            "url": "grpc://orderer:31010"
+            "url": "grpc://orderer:31010",
+	    "tlsCACerts": {
+                "pem": "-----BEGIN CERTIFICATE-----\nMIICWDCCAf6gAwIBAgIRAIKM1rnSnkFM9DKIz/SUocswCgYIKoZIzj0EAwIwdjEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzEuZXhhbXBsZS5jb20xHzAdBgNVBAMTFnRs\nc2NhLm9yZzEuZXhhbXBsZS5jb20wHhcNMjEwNzE1MjA0NTAwWhcNMzEwNzEzMjA0\nNTAwWjB2MQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UE\nBxMNU2FuIEZyYW5jaXNjbzEZMBcGA1UEChMQb3JnMS5leGFtcGxlLmNvbTEfMB0G\nA1UEAxMWdGxzY2Eub3JnMS5leGFtcGxlLmNvbTBZMBMGByqGSM49AgEGCCqGSM49\nAwEHA0IABPhgS7UC6eDcyvHvjCqY05JG+KpsOxpoWXtJMqdQQfDnslxQkGbQXdAg\nMT+xDX9NOOOwbT61rj9fBRmHeLH2jUKjbTBrMA4GA1UdDwEB/wQEAwIBpjAdBgNV\nHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zApBgNV\nHQ4EIgQgKbOU3e/8aQPfdPWEPfrl/NmUVTuhKCjPj94saXrReNUwCgYIKoZIzj0E\nAwIDSAAwRQIhAPio4gQoZjTY3YEsgtv6W4Ut1+8sQdUtTKYEzIQAZJsXAiAlKPCA\nw+k9pTfFykXhdfLK0PtwQbM1OpfRATc6OluRmg==\n-----END CERTIFICATE-----\n"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.org1.example.com",
+                "hostnameOverride": "peer0.org1.example.com"
+            }
         },
 	"orderer": {
-            "url": "grpc://orderer:31010"
+            "url": "grpc://orderer:31010",
+	    "tlsCACerts": {
+                "pem": "-----BEGIN CERTIFICATE-----\nMIICWDCCAf6gAwIBAgIRAIKM1rnSnkFM9DKIz/SUocswCgYIKoZIzj0EAwIwdjEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzEuZXhhbXBsZS5jb20xHzAdBgNVBAMTFnRs\nc2NhLm9yZzEuZXhhbXBsZS5jb20wHhcNMjEwNzE1MjA0NTAwWhcNMzEwNzEzMjA0\nNTAwWjB2MQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UE\nBxMNU2FuIEZyYW5jaXNjbzEZMBcGA1UEChMQb3JnMS5leGFtcGxlLmNvbTEfMB0G\nA1UEAxMWdGxzY2Eub3JnMS5leGFtcGxlLmNvbTBZMBMGByqGSM49AgEGCCqGSM49\nAwEHA0IABPhgS7UC6eDcyvHvjCqY05JG+KpsOxpoWXtJMqdQQfDnslxQkGbQXdAg\nMT+xDX9NOOOwbT61rj9fBRmHeLH2jUKjbTBrMA4GA1UdDwEB/wQEAwIBpjAdBgNV\nHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zApBgNV\nHQ4EIgQgKbOU3e/8aQPfdPWEPfrl/NmUVTuhKCjPj94saXrReNUwCgYIKoZIzj0E\nAwIDSAAwRQIhAPio4gQoZjTY3YEsgtv6W4Ut1+8sQdUtTKYEzIQAZJsXAiAlKPCA\nw+k9pTfFykXhdfLK0PtwQbM1OpfRATc6OluRmg==\n-----END CERTIFICATE-----\n"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.org1.example.com",
+                "hostnameOverride": "peer0.org1.example.com"
+            }
         }
     },
     "peers": {
