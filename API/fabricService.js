@@ -80,7 +80,7 @@ class fabricService{
     
             // Create a new gateway for connecting to our peer node.
             const gateway = new Gateway();
-            await gateway.connect(ccp, { wallet, identity: adminName, discovery: { enabled: false } });
+            await gateway.connect(ccp, { wallet, identity: adminName, discovery: { enabled: false,  asLocalhost: false } });
     
             // Get the CA client object from the gateway for interacting with the CA.
             const ca = gateway.getClient().getCertificateAuthority();
@@ -125,7 +125,7 @@ class fabricService{
     
             // Create a new gateway for connecting to our peer node.
             const gateway = new Gateway();
-            await gateway.connect(ccp, { wallet, identity: username, discovery: { enabled: false } });
+            await gateway.connect(ccp, { wallet, identity: username, discovery: { enabled: false,  asLocalhost: false } });
     
             // Get the network (channel) our contract is deployed to.
             const network = await gateway.getNetwork(channel);
@@ -163,7 +163,7 @@ class fabricService{
     
             // Create a new gateway for connecting to our peer node.
             const gateway = new Gateway();
-            await gateway.connect(ccp, { wallet, identity: username, discovery: { enabled: false } });
+            await gateway.connect(ccp, { wallet, identity: username, discovery: { enabled: false,  asLocalhost: false } });
     
             // Get the network (channel) our contract is deployed to.
             const network = await gateway.getNetwork(channel);
@@ -202,7 +202,7 @@ class fabricService{
     
             // Create a new gateway for connecting to our peer node.
             const gateway = new Gateway();
-            await gateway.connect(ccp, { wallet, identity: username, discovery: { enabled: false } });
+            await gateway.connect(ccp, { wallet, identity: username, discovery: { enabled: false,  asLocalhost: false } });
     
             // Get the network (channel) our contract is deployed to.
             const network = await gateway.getNetwork(channel);
